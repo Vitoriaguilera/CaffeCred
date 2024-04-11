@@ -2,261 +2,6 @@
 
 @{
     ViewData["Title"] = "Categorias";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -273,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="card-body px-0 pb-2">
+            <div class="card-body pb-2">
                 <div class="table-responsive p-0">
 
                     <table id="dataTable" class="table align-items-center justify-content-center mb-0 w-100">
@@ -297,10 +42,10 @@
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@item.Id" title="Alterar">
                                             <i class="material-icons me-2">edit</i>
-                                        </a> 
+                                        </a>
                                         <a asp-action="Details" asp-route-id="@item.Id" title="Detalhes">
                                             <i class="material-icons me-2">search</i>
-                                        </a> 
+                                        </a>
                                         <a asp-action="Delete" asp-route-id="@item.Id" title="Excluir">
                                             <i class="material-icons me-2">delete</i>
                                         </a>
@@ -316,4 +61,20 @@
         </div>
     </div>
 </div>
-</table>
+
+
+@section Scripts {
+    <script>
+        let datatable = new DataTable('#dataTable', {
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/pt-BR.json'
+                },
+                initComplete: function(settings, json){
+                    document.querySelector('.dt-lenght').classList.add('text-xs');
+                    document.querySelector('.dt-search').classList.add('text-xs');
+                    document.querySelector('.dt-info').classList.add('text-xs');
+                    document.querySelector('.dt-paging').classList.add('text-xs');
+                }
+            });
+    </script>
+}
