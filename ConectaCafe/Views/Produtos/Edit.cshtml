@@ -56,9 +56,9 @@
                     </div>
 
 
-                    <div class="col-lg-4 col-md-3">
-                        <img asp-src="Foto" class="w-75" alt="Sem foto" onclick="changeImage()">
-                        <input type="" name="" id="">
+                    <div class="col-lg-3 col-md-3">
+                        <img id="Preview" src='@(Model.Foto ?? Url.Content("~/img/sem-foto.png"))' asp-src="Foto" class="w-75" alt="Sem foto" onclick="changeImage()">
+                        <input type="hidden" asp-for="Foto">
                         <input type="file" id="Arquivo" name="Arquivo" accept=".jpg, .jpeg, .png, .gif" hidden>
                     </div>
 

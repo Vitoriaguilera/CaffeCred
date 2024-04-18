@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConectaCafe.Data;
 using ConectaCafe.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ConectaCafe.Controllers
 {
@@ -61,19 +62,27 @@ namespace ConectaCafe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,Preco,Foto,CategoriaId")] Produto produto, IFormFile Arquivo)
         {
+
+            // Validando status da classes
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
-                await _context.SaveChangesAsync();
 
-                if (Arquivo != null)
+                _context.Add(produto); // criando um body para o context
+                await _context.SaveChangesAsync(); // Salvando alterações
+
+                if (Arquivo != null) // Verificando se o usuario envio uma imagem
                 {
-                    string filename = produto.Id + Path.GetExtension(Arquivo.FileName);
-                    string caminho = Path.Combine(_host.WebRootPath, "img\\produtos");
-                    string novoArquivo = Path.Combine(caminho, filename);
-                    using (var stream = new FileStream(novoArquivo, FileMode.Create)){
-                        
+                    // Criando uma foto no servidor
+                    string filename = produto.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
+                    string caminho = Path.Combine(_host.WebRootPath, "img\\produtos"); // setando um caminho para salvar
+                    string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
+                    using (var stream = new FileStream(novoArquivo, FileMode.Create))
+                    {
+                        Arquivo.CopyTo(stream);
                     }
+
+                    produto.Foto = "\\img\\produtos\\" + filename;
+                    await _context.SaveChangesAsync();
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -103,7 +112,7 @@ namespace ConectaCafe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Descricao,Preco,Foto,CategoriaId")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Descricao,Preco,Foto,CategoriaId")] Produto produto, IFormFile Arquivo)
         {
             if (id != produto.Id)
             {
@@ -114,6 +123,22 @@ namespace ConectaCafe.Controllers
             {
                 try
                 {
+
+                    if (Arquivo != null) // Verificando se o usuario envio uma imagem
+                    {
+                        // Criando uma foto no servidor
+                        string filename = produto.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
+                        string caminho = Path.Combine(_host.WebRootPath, "img\\produtos"); // setando um caminho para salvar
+                        string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
+                        using (var stream = new FileStream(novoArquivo, FileMode.Create))
+                        {
+                            Arquivo.CopyTo(stream);
+                        }
+
+                        produto.Foto = "\\img\\produtos\\" + filename;
+                    }
+
+
                     _context.Update(produto);
                     await _context.SaveChangesAsync();
                 }
