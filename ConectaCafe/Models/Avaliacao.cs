@@ -29,6 +29,7 @@ public class Avaliacao
 
 
     [DataType(DataType.Date)]
+    
     public DateTime DataAvaliacao { get; set; } = DateTime.Now;
 
 
