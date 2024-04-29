@@ -5,6 +5,80 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+
+
+<div class="row">
+    <div class="col">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h4 class="text-white text-capitalize ps-3">@ViewData["Title"]</h4>
+                    <h6 class="text-white text-capitalize ps-3">Deletar</h6>
+                </div>
+            </div>
+
+            <div class="card-body pb-2 row">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-lg-8 col-md-9">
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Pessoa" for="floatingInput" class="form-label"></label>
+                            <input asp-for="Pessoa" class="form-control" readonly />
+                        </div>
+                        <span asp-validation-for="Pessoa" class="text-danger text-sm"></span>
+                    </div>
+
+
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Texto" for="floatingInput" class="form-label"></label>
+                            <textarea asp-for="Texto" class="form-control" rows="5" ></textarea>
+                        </div>
+                        <span asp-validation-for="Texto" class="text-danger text-sm"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 me-3">
+                            <div class="input-group input-group-outline mb-1">
+                                <label asp-for="Nota" for="floatingInput" class="form-label"></label>
+                                <input asp-for="Nota" class="form-control" readonly />
+                            </div>
+                            <span asp-validation-for="Nota" class="text-danger text-sm"></span>
+                        </div>
+
+                        <div class="col-4 me-3">
+                            <div class="input-group input-group-outline mb-1">
+                                <label asp-for="DataAvaliacao" for="floatingInput" class="form-label"></label>
+                                <input asp-for="DataAvaliacao" class="form-control" readonly />
+                            </div>
+                            <span asp-validation-for="DataAvaliacao" class="text-danger text-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-3">
+                    <img src='@(Model.Foto ?? Url.Content("~/img/sem-foto.png"))' class="w-75" alt="Sem foto"
+                        onclick="changeImage()" readonly>
+                    <input type="hidden" asp-for="Foto">
+                    <input type="file" id="Arquivo" name="Arquivo" accept=".jpg, .jpeg, .png, .gif" hidden>
+                </div>
+
+                <div class="pb-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-primary me-3" />
+                        <a asp-action="Index" class="btn btn-info">Cancelar</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>

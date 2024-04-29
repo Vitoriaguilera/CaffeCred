@@ -9,7 +9,7 @@
     <div class="col">
         <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
                     <h4 class="text-white text-capitalize ps-3">@ViewData["Title"]</h4>
                     <h6 class="text-white text-capitalize ps-3">Editar</h6>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="col-12 mb-3">
                             <div class="input-group input-group-outline mb-1">
                                 <label asp-for="Descricao" for="floatingInput" class="form-label"></label>
-                                <textarea asp-placeholder="Descricao" class="form-control" rows="5" /></textarea>
+                                <textarea asp-for="Descricao" class="form-control" rows="5" ></textarea>
                             </div>
                             <span asp-validation-for="Descricao" class="text-danger"></span>
                         </div>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="pb-3">
-                        <input type="submit" value="Save" class="btn btn-success me-3" />
+                        <input type="submit" value="Salvar" class="btn btn-success me-3" />
                         <a asp-action="Index" class="btn btn-primary">Cancelar</a>
                     </div>
 
@@ -72,3 +72,21 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        function changeImage() {
+            document.querySelector("input[type='file']").click();
+        }
+
+        window.addEventListener('load', function () {
+            document.querySelector("input[type='file']").addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    var img = document.getElementById("Preview");
+                    img.src = URL.createObjectURL(this.files[0]);
+                }
+            });
+        });
+    </script>
+}

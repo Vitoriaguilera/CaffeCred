@@ -22,7 +22,7 @@ public class Blog
     [StringLength(200)]
     public string Foto { get; set;}
 
-    [Display(Name = " Data de Cadastro")]
+    [Display(Name = "Data de Cadastro")]
     public DateTime DataBlog { get; set; } = DateTime.Now;
 
     public ICollection<BlogTag> BlogTags { get; set; }

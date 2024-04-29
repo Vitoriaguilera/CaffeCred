@@ -14,15 +14,18 @@ namespace ConectaCafe.Controllers
     {
         private readonly AppDbContext _context;
 
-        public BlogsController(AppDbContext context)
+        private readonly IWebHostEnvironment _host;
+
+        public BlogsController(AppDbContext context, IWebHostEnvironment host)
         {
             _context = context;
+            _host = host;
         }
 
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Blogs.ToListAsync());
+            return View(await _context.Blogs.ToListAsync());
         }
 
         // GET: Blogs/Details/5
@@ -54,12 +57,26 @@ namespace ConectaCafe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,Texto,Foto,DataBlog")] Blog blog)
+        public async Task<IActionResult> Create([Bind("Id,Titulo,Texto,Foto,DataBlog")] Blog blog, IFormFile Arquivo)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
+
+                if (Arquivo != null) // Verificando se o usuario envio uma imagem
+                {
+                    // Criando uma foto no servidor
+                    string filename = blog.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
+                    string caminho = Path.Combine(_host.WebRootPath, "img\\blogs"); // setando um caminho para salvar
+                    string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
+                    using (var stream = new FileStream(novoArquivo, FileMode.Create))
+                    {
+                        Arquivo.CopyTo(stream);
+                    }
+
+                    blog.Foto = "\\img\\blogs\\" + filename;
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(blog);
@@ -86,7 +103,7 @@ namespace ConectaCafe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Texto,Foto,DataBlog")] Blog blog)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Texto,Foto,DataBlog")] Blog blog, IFormFile Arquivo)
         {
             if (id != blog.Id)
             {
@@ -97,6 +114,20 @@ namespace ConectaCafe.Controllers
             {
                 try
                 {
+                    if (Arquivo != null) // Verificando se o usuario envio uma imagem
+                    {
+                        // Criando uma foto no servidor
+                        string filename = blog.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
+                        string caminho = Path.Combine(_host.WebRootPath, "img\\blogs"); // setando um caminho para salvar
+                        string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
+                        using (var stream = new FileStream(novoArquivo, FileMode.Create))
+                        {
+                            Arquivo.CopyTo(stream);
+                        }
+
+                        blog.Foto = "\\img\\blogs\\" + filename;
+                    }
+
                     _context.Update(blog);
                     await _context.SaveChangesAsync();
                 }
@@ -148,14 +179,14 @@ namespace ConectaCafe.Controllers
             {
                 _context.Blogs.Remove(blog);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BlogExists(int id)
         {
-          return _context.Blogs.Any(e => e.Id == id);
+            return _context.Blogs.Any(e => e.Id == id);
         }
     }
 }

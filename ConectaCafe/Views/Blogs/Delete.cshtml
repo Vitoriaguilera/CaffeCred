@@ -5,42 +5,66 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Blog</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Texto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Texto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Foto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataBlog)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataBlog)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+
+<div class="row">
+    <div class="col">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h4 class="text-white text-capitalize ps-3">@ViewData["Title"]</h4>
+                    <h6 class="text-white text-capitalize ps-3">Deletar</h6>
+                </div>
+            </div>
+
+            <div class="card-body pb-2 row">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-lg-8 col-md-9">
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Titulo" for="floatingInput" class="form-label"></label>
+                            <input asp-for="Titulo" class="form-control" readonly />
+                        </div>
+                        <span asp-validation-for="Titulo" class="text-danger text-sm"></span>
+                    </div>
+
+
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Texto" for="floatingInput" class="form-label"></label>
+                            <textarea asp-for="Texto" class="form-control" rows="5" ></textarea>
+                        </div>
+                        <span asp-validation-for="Texto" class="text-danger text-sm"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 me-3">
+                            <div class="input-group input-group-outline mb-1">
+                                <label asp-for="DataBlog" for="floatingInput" class="form-label"></label>
+                                <input asp-for="DataBlog" class="form-control" readonly />
+                            </div>
+                            <span asp-validation-for="DataBlog" class="text-danger text-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-3">
+                    <img src='@(Model.Foto ?? Url.Content("~/img/sem-foto.png"))' class="w-75" alt="Sem foto"
+                        onclick="changeImage()" readonly>
+                    <input type="hidden" asp-for="Foto">
+                    <input type="file" id="Arquivo" name="Arquivo" accept=".jpg, .jpeg, .png, .gif" hidden>
+                </div>
+
+                <div class="pb-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-primary me-3" />
+                        <a asp-action="Index" class="btn btn-info">Cancelar</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

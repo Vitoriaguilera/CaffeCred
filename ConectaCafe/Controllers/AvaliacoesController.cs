@@ -71,7 +71,7 @@ namespace ConectaCafe.Controllers
                 {
                     // Criando uma foto no servidor
                     string filename = avaliacao.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
-                    string caminho = Path.Combine(_host.WebRootPath, "img\\produtos"); // setando um caminho para salvar
+                    string caminho = Path.Combine(_host.WebRootPath, "img\\avaliacoes"); // setando um caminho para salvar
                     string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
                     using (var stream = new FileStream(novoArquivo, FileMode.Create))
                     {
@@ -125,7 +125,7 @@ namespace ConectaCafe.Controllers
                     {
                         // Criando uma foto no servidor
                         string filename = avaliacao.Id + Path.GetExtension(Arquivo.FileName);  // Criando o nome do caminho para não haver repetição
-                        string caminho = Path.Combine(_host.WebRootPath, "img\\produtos"); // setando um caminho para salvar
+                        string caminho = Path.Combine(_host.WebRootPath, "img\\avaliacoes"); // setando um caminho para salvar
                         string novoArquivo = Path.Combine(caminho, filename); // Criando um novo caminho
                         using (var stream = new FileStream(novoArquivo, FileMode.Create))
                         {

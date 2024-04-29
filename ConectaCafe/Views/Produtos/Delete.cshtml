@@ -17,61 +17,63 @@
                 </div>
             </div>
 
-            <div class="card-body pb-2">
-                <form asp-action="Create" class="row">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="col-lg-8 col-md-9">
-                        <div class="col-12 mb-3">
-                            <div class="input-group input-group-outline mb-1">
-                                <label asp-for="Nome" for="floatingInput" class="form-label"></label>
-                                <input asp-for="Nome" class="form-control" readonly />
-                            </div>
-                            <span asp-validation-for="Nome" class="text-danger text-sm"></span>
+            <div class="card-body pb-2 row">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-lg-8 col-md-9">
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Nome" for="floatingInput" class="form-label"></label>
+                            <input asp-for="Nome" class="form-control" readonly />
                         </div>
-
-
-                        <div class="col-12 mb-3">
-                            <div class="input-group input-group-outline mb-1">
-                                <label asp-for="Descricao" for="floatingInput" class="form-label"></label>
-                                <textarea asp-for="Descricao" class="form-control" rows="5" /></textarea>
-                            </div>
-                            <span asp-validation-for="Descricao" class="text-danger text-sm"></span>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-8 mb-3">
-                                <div class="input-group input-group-outline mb-1">
-                                    <label asp-for="CategoriaId" for="floatingInput" class="form-label"></label>
-                                    <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId">
-                                        <option></option>
-                                    </select>
-                                </div>
-                                <span asp-validation-for="CategoriaId" class="text-danger text-sm"></span>
-                            </div>
-
-                            <div class="col-4 me-3">
-                                <div class="input-group input-group-outline mb-1">
-                                    <label asp-for="Preco" for="floatingInput" class="form-label"></label>
-                                    <input asp-for="Preco" class="form-control" readonly />
-                                </div>
-                                <span asp-validation-for="Preco" class="text-danger text-sm"></span>
-                            </div>
-                        </div>
+                        <span asp-validation-for="Nome" class="text-danger text-sm"></span>
                     </div>
 
-                    <div class="col-lg-4 col-md-3">
-                        <img src='@(Model.Foto ?? Url.Content("~/img/sem-foto.png"))' class="w-75" alt="Sem foto"
-                            onclick="changeImage()" readonly>
-                        <input type="hidden" asp-for="Foto">
-                        <input type="file" id="Arquivo" name="Arquivo" accept=".jpg, .jpeg, .png, .gif" hidden>
+
+                    <div class="col-12 mb-3">
+                        <div class="input-group input-group-outline mb-1">
+                            <label asp-for="Descricao" for="floatingInput" class="form-label"></label>
+                            <textarea asp-for="Descricao" class="form-control" rows="5" /></textarea>
+                        </div>
+                        <span asp-validation-for="Descricao" class="text-danger text-sm"></span>
                     </div>
 
-                    <div class="pb-3">
+                    <div class="row">
+                        <div class="col-8 mb-3">
+                            <div class="input-group input-group-outline mb-1">
+                                <label asp-for="CategoriaId" for="floatingInput" class="form-label"></label>
+                                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="CategoriaId" class="text-danger text-sm"></span>
+                        </div>
+
+                        <div class="col-4 me-3">
+                            <div class="input-group input-group-outline mb-1">
+                                <label asp-for="Preco" for="floatingInput" class="form-label"></label>
+                                <input asp-for="Preco" class="form-control" readonly />
+                            </div>
+                            <span asp-validation-for="Preco" class="text-danger text-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-3">
+                    <img src='@(Model.Foto ?? Url.Content("~/img/sem-foto.png"))' class="w-75" alt="Sem foto"
+                        onclick="changeImage()" readonly>
+                    <input type="hidden" asp-for="Foto">
+                    <input type="file" id="Arquivo" name="Arquivo" accept=".jpg, .jpeg, .png, .gif" hidden>
+                </div>
+
+                <div class="pb-3">
+                    <form asp-action="Delete">
                         <input type="hidden" asp-for="Id" />
                         <input type="submit" value="Delete" class="btn btn-primary me-3" />
                         <a asp-action="Index" class="btn btn-info">Cancelar</a>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

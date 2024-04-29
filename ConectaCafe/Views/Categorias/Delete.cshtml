@@ -11,30 +11,31 @@
     <div class="col-12">
         <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
                     <h4 class="text-white text-capitalize ps-3">@ViewData["Title"]</h4>
                     <h6 class="text-white text-capitalize ps-3">Você tem certeza que deseja deletar?</h6>
                 </div>
             </div>
 
             <div class="card-body pb-2">
-                <form asp-action="Delete">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id">
-                    <div class="col-12 mb-3">
-                        <div class="input-group input-group-outline mb-1">
-                            <label asp-for="Nome"  class="form-label"></label>
-                            <input asp-for="Nome" class="form-control" readonly />
-                        </div>
-                        <span asp-validation-for="Nome" class="text-danger text-sm"></span>
-                    </div>
 
-                    <div class="pb-3">
-                        <input type="hidden" asp-for="Id" />
-                        <input type="submit" value="Delete" class="btn btn-primary me-3" />
-                        <a asp-action="Index" class="btn btn-info">Cancelar</a>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id">
+                <div class="col-12 mb-3">
+                    <div class="input-group input-group-outline mb-1">
+                        <label asp-for="Nome" class="form-label"></label>
+                        <input asp-for="Nome" class="form-control" readonly />
                     </div>
-                </form>
+                    <span asp-validation-for="Nome" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="pb-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-success me-3" />
+                        <a asp-action="Index" class="btn btn-info">Cancelar</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

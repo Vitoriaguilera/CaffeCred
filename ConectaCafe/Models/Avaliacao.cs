@@ -27,9 +27,8 @@ public class Avaliacao
     public decimal Nota { get; set; }
 
 
-
     [DataType(DataType.Date)]
-    
+    [Display(Name = "Data de Avaliação")]    
     public DateTime DataAvaliacao { get; set; } = DateTime.Now;
 
 
